@@ -109,9 +109,11 @@
         {% block body%}{% endblock %}
 
         <!--脚-->
-        {% block footer %}
-         <div class='footer'>Copyright @ 2018 By 实验楼</div>
-        {% endblock %}
+          {% block footer %}
+          <div class="row">
+            <div class='footer'>Copyright @ 2018 By 实验楼</div>
+          {% endblock %}
+          </div>
         </div><!--container-->
            
 
@@ -121,6 +123,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!--Bootstrap 核心 JavaScrip 文件-->
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.staticfile.org/holder/2.9.6/holder.min.js"></script>
     {% endblock %}
     </body>
 

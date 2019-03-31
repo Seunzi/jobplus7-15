@@ -24,7 +24,7 @@ class RegisterForm(FlaskForm):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('邮箱已存在')
 
-                           
+
     def create_user(self):   #在数据中创建User
         user = User(username=self.name.data,
                     email=self.email.data,
@@ -64,7 +64,7 @@ class UserProfileForm(FlaskForm):
         phone = field.data
         if phone[:2] not in ('13','15','18') or len(phone) !=11 :
             raise ValidationError('请输入有效的手机号')
-    
+
     #要查看User对象的属性
     def updata_profile(self,user): #传入User对象，将相应数据写入，传入数据库
         user.real_name = self.real_name.data
@@ -157,7 +157,7 @@ class AddCompanyForm(FlaskForm):
     def validate_name(self, field):
         if User.query.filter_by(username=field.data).first():
             raise ValidationError('公司名称已经存在')
-    
+
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('邮箱已经存在')
@@ -197,9 +197,10 @@ class AddJobForm(FlaskForm):
     name = StringField('职位名称', validators=[Length(3)])
     low = IntegerField('最低薪酬', validators=[Required()])
     high = IntegerField('最高薪酬', validators=[Required()])
-    experience = StringField('经验要求', validators=[Length(max=32)])
+    experience = StringField('经验要求(年数或不限)', validators=[Length(max=32)])
     description = StringField('职位描述', validators=[Length(max=128)])
     degree = StringField('职位学历要求', validators=[Length(max=32)])
+    tags = StringField('职位标签(多个标签用;分隔标签)',validators=[Length(max=64)])
     submit = SubmitField('提交')
 
     def create_job(self,company):

@@ -106,6 +106,10 @@ class Company(Base):
     def __repr__(self):
         return '<Company {}>'.format(self.name)
 
+    @property
+    def enable_jobs(self):
+        return self.job.filter(up=True).all()
+
 
 class Job(Base):
     __tablename__ = 'job'
@@ -141,6 +145,10 @@ class Job(Base):
         d = Delivery.query.filter_by(job_id=self.id,user_id=current_user.id).first()
         return (d is not None)
 
+    @property
+    def tag_list(self):
+        return self.tags.split(';')
+
 class Status(Base):
     __tablename__ = 'status'
     # 审核
@@ -167,7 +175,7 @@ class Delivery(Base):
     STATUS_REJECT = 2
     #被接收，等待面试
     STATUS_ACCEPT = 3
- 
+
     id = db.Column(db.Integer,primary_key=True)
     # SET ondelete to CASCADE, avoding TypeError in Jinja.
     job_id = db.Column(db.Integer,db.ForeignKey('job.id',ondelete='CASCADE'))

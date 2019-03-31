@@ -15,24 +15,25 @@
 
 {% block body %}
 <div class='row'>
-<!--导航栏-->
-<ul class='nav nav-tabs list-title'>
-<li role='presentation' class='active'><a href='#'>新职位</a></li>
-</ul>
-<!--职位信息-->
-<div class='newest-job-list'>
-    {% for job in job_pagination.items %}
-    {{ render_job(job) }}
-    {% endfor %}
+  <!--导航栏-->
+  <ul class='nav nav-tabs list-title'>
+    <li role='presentation' class='active'><a href='#'>新职位</a></li>
+  </ul>
+  <!--职位信息-->
+  <div class='newest-job-list'>
+      {% for job in job_pagination.items %}
+      {{ render_job(job) }}
+      {% endfor %}
+  </div>
+  
 </div>
+<div class='row'>
+  <p class='list-more text-center'>
+  <a href='{{ url_for('job.index') }}' class='btn btn-success btn-lg list-more-btn'>查看更多</a>
+  </p>
 </div>
-<p class='list-more text-center'>
-<a href='{{ url_for('job.index') }}' class='btn btn-success btn-lg list-more-btn'>查看更多</a>
-</p>
 
 
-
-<!--导航栏-->
 <div class='row'>
 <ul class='nav nav-tabs list-title'>
 <li role='presentation' class='active'><a href='#'>新公司</a></li>

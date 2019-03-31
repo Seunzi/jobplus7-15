@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-{{ company.name }}
+{{ company.user.username }}
 {% endblock %}
 
 {% block head %}
@@ -10,14 +10,14 @@
 
         <div class='col-md-3'>
             <div class='thumbnail'>
-                <img src="{{ company.detail.logo }}">
+                <img src="{{ company.logo }}">
             </div><!--thumbnail-->
         </div><!--col-md-3-->
 
         <div class='col-md-9'>
-            <h2>{{ company.username }}</h2>
-            <p>{{ company.detail.description }}</p>
-            <a href="{{company.detail.site}}">{{ company.detail.site }}</a>
+            <h2>{{ company.user.username }}</h2>
+            <p>{{ company.description }}</p>
+            <a href="{{company.site}}">{{ company.site }}</a>
         </div><!--col-md-9-->
 
     </div><!--container-->
@@ -33,10 +33,10 @@
     </ul>
 
     <div class='company-detail'>
-        {% if panel == 'about'%}
-            {{ company.detail.about  }}
+        {% if panel == 'about' %}
+            {{ company.about  }}
         {% else %}
-        {% for job in company.job %}
+        {% for job in company.enable_jobs %}
         <div class='job-item'>
             <a href='{{ url_for('job.detail',job_id=job.id) }}'>
                 <div class='row'>
@@ -45,7 +45,6 @@
                 <span class='job-salary'>{{ job.low }}-{{ job.high }}</span><!--job-salary-->
                 &nbsp;
                 <span class='job-meta'>经验{{ job.experience }}{% if not job.experience == '不限' %}年{% endif %}{{ job.degree  }}</span>
-
                 </p>
                 </div>
             </a>
@@ -57,7 +56,7 @@
 
 <div class='col-md-4'>
     <h4>公司基本信息</h4>
-    <p>城市：{{ company.detail.location }}</p>
+    <p>城市：{{ company.location }}</p>
 </div>
 {% endblock %}
 

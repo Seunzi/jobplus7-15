@@ -1,4 +1,4 @@
-from flask import Blueprint,flash,redirect,url_for,render_template, current_app, request
+from flask import Blueprint,flash,redirect,url_for,render_template, current_app, request, abort
 from flask_login import login_required,current_user
 from jobplus.forms import CompanyProfileForm
 from jobplus.models import Company, Job,User
@@ -7,7 +7,7 @@ company = Blueprint('company',__name__,url_prefix='/company')
 
 #企业用户登录后，信息完善
 @company.route('/profile',methods=['GET','POST'])
-@login_required  
+@login_required
 def profile():
     if not current_user.is_company:
         flash('您不是企业用户','warning')
@@ -34,7 +34,6 @@ def index():
 @company.route('/<int:company_id>')
 def detail(company_id):
     panel = request.args.get('panel','about')
-    company = User.query.get_or_404(company_id)
-    if not company.is_company:
-        about(404)
+    company = Company.query.get_or_404(company_id)
+    flash('{}'.format(company.enable_jobs()))
     return render_template('company/detail.html',company=company,panel=panel)

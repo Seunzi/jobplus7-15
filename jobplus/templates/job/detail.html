@@ -9,7 +9,7 @@
     <div class="container">
       <div class="col-md-8">
           <h2>{{ job.name }}</h2>
-          <p><span class="job-salary">{{ job.low }}-{{ job.high }}</span>&nbsp;经验{{ job.experience }} {% if job.experience!= '不限' %}年{% endif %} 学历 {{ job.degree }}</p>
+          <p><span class="job-salary">薪酬:{{ job.low }}-{{ job.high }}</span>&nbsp;经验:{{ job.experience }} {% if job.experience!= '不限' %}年{% endif %} 学历:{{ job.degree }}</p>
       </div>
       <div class="col-md-4">
         {% if current_user.is_authenticated %}
@@ -25,7 +25,8 @@
 {% endblock %}
 
 {% block body %}
-<div class="col-md-8">
+<div class="row">
+<div class="mt-4 col-md-8">
     <div class="col-md-8">
         <h3>职位标签</h3> <br>
         <p>{{ job.tags }}</p>
@@ -37,7 +38,7 @@
         <div class="media">
             <div class="media-left">
                 <a href="#">
-                    <img src="{{ job.company.detail.logo }}" class="media-object" height="96" width="96">
+                    <img {% if job.company.detail.logo %}src="{{ job.company.detail.logo }}"{% else %}data-src="holder.js/96x96?random=yes"{% endif %} class="media-object" height="96" width="96">
                 </a>
             </div>
             <div class="media-body"></div>
@@ -47,5 +48,6 @@
         <p>融资: {{ job.company.detail.finance_stage }}</p>
         <p>城市: {{ job.company.detail.location }}</p>
     </div>
+</div>
 </div>
 {% endblock %}
