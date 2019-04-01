@@ -35,5 +35,4 @@ def index():
 def detail(company_id):
     panel = request.args.get('panel','about')
     company = Company.query.get_or_404(company_id)
-    flash('{}'.format(company.enable_jobs()))
     return render_template('company/detail.html',company=company,panel=panel)

@@ -89,6 +89,8 @@ class CompanyProfileForm(FlaskForm):
     logo = StringField('Logo')
     description = StringField('一句话描述',validators=[Length(0,100)])
     about = TextAreaField('公司详情',validators=[Length(0,1024)])
+    field = StringField('领域',validators=[Required(), Length(max=60)])
+    finance_stage = StringField('融资情况',validators=[Required(), Length(max=60)])
     submit = SubmitField('提交')
 
     def validate_contact(self,field):
@@ -152,6 +154,9 @@ class AddCompanyForm(FlaskForm):
     repeat_password = PasswordField('重复密码', validators=[Required(), EqualTo('password')])
     site = StringField('企业网站', validators=[Required(), URL()])
     description = StringField('一句话简介', validators=[Required(), Length(max=100)])
+    about = StringField('简介',validators=[Required(), Length(max=128)])
+    field = StringField('领域',validators=[Required(), Length(max=60)])
+    finance_stage = StringField('融资情况',validators=[Required(), Length(max=60)])
     submit = SubmitField('完成')
 
     def validate_name(self, field):

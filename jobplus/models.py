@@ -99,6 +99,10 @@ class Company(Base):
     team = db.Column(db.String(256))
     # 公司福利
     welfare = db.Column(db.String(256))
+    # field
+    field = db.Column(db.String(128))
+    # finance_stage
+    finance_stage = db.Column(db.String(128))
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'))
     user = db.relationship('User', uselist=False, backref=db.backref('company', uselist=False))
@@ -108,7 +112,7 @@ class Company(Base):
 
     @property
     def enable_jobs(self):
-        return self.job.filter(up=True).all()
+        return self.user.job.filter_by(up=True).all()
 
 
 class Job(Base):

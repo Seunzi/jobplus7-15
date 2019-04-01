@@ -13,7 +13,7 @@
 import os
 from jobplus.models import db, User, Job, Delivery
 from collections import namedtuple
-from random import randint
+from random import randint,choice
 from faker import Faker
 
 tuser = namedtuple('tuser',['username','email','password','role'])
@@ -40,15 +40,16 @@ def iter_users():
 
 def iter_jobs():
     company_user = User.query.filter_by(username='company').first()
-    for i in range(5):
+    for i in range(30):
         yield Job(
                 name = fake.job(),
                 low = randint(6000,10000),
                 high = randint(10001,20000),
-                tags = fake.color_name(),
-                experience = fake.text(max_nb_chars=30),
+                tags = fake.color_name() + ';' +fake.color_name(),
+                experience = str(randint(0,50)) + '-' + str(randint(51,100)),
                 description = fake.text(max_nb_chars=100),
-                company=company_user
+                company=company_user,
+                degree=choice(['不限','大专','本科','硕士'])
                 )
 
 def iter_delivs():
